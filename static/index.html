@@ -4,123 +4,155 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Designs Law Assistant | CGPDTM IP India</title>
-  <meta name="description" content="Professional RAG Assistant for Indian Industrial Designs Law grounded in the official CGPDTM Manual of Practice and Procedure.">
+  <meta name="description" content="AI Legal Assistant for Indian Industrial Designs Law grounded in the official CGPDTM Manual of Practice and Procedure.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <!-- Minimalist background grid -->
-  <div class="tech-grid"></div>
+  <!-- Ambient depth lights & canvas -->
+  <div class="ambient-glow glow-top"></div>
+  <div class="ambient-glow glow-bottom"></div>
+  <canvas id="ambientCanvas" class="ambient-canvas"></canvas>
 
   <div class="app-layout">
-    <!-- Professional Topbar -->
+    <!-- Topbar Navigation -->
     <header class="topbar">
-      <div class="brand-block">
-        <div class="brand-monogram">IN</div>
-        <div class="brand-text">
+      <div class="brand-group">
+        <div class="brand-badge">
+          <span class="badge-glitch">IN</span>
+        </div>
+        <div class="brand-info">
           <div class="brand-title">DESIGNS LAW ASSISTANT</div>
-          <div class="brand-meta">OFFICE OF CGPDTM • DESIGNS WING, KOLKATA • 87 PAGES</div>
+          <div class="brand-subtitle">CGPDTM • DESIGNS WING, KOLKATA • 87 PAGES • 163 CHUNKS</div>
         </div>
       </div>
-      <div class="system-status">
-        <div class="status-indicator">
-          <span class="pixel-dot"></span>
-          <span class="status-text">SYSTEM OPERATIONAL</span>
+
+      <div class="metrics-cluster">
+        <div class="metric-pill">
+          <span class="pulse-indicator"></span>
+          <span class="pill-label">RAG CORE ACTIVE</span>
         </div>
-        <div class="spec-chip">INDEX: 163 CHUNKS</div>
-        <div class="spec-chip">GATE: 0.50 THRESHOLD</div>
+        <div class="metric-pill">
+          <span class="pill-dim">GATE</span>
+          <span class="pill-val">0.50</span>
+        </div>
+        <div class="metric-pill">
+          <span class="pill-dim">MODEL</span>
+          <span class="pill-val">GEMINI 3.5</span>
+        </div>
       </div>
     </header>
 
-    <!-- ASCII / Terminal Header Banner -->
-    <section class="ascii-banner" aria-hidden="true">
-      <pre class="ascii-art">
-+-----------------------------------------------------------------------------------------+
-|  CGPDTM // MANUAL OF DESIGNS PRACTICE & PROCEDURE // RAG VERIFICATION CORE              |
-|  STATUS: GROUNDED LEGAL RETRIEVAL   [CHROMA_DB: ACTIVE]   [MODEL: GEMINI-3.5-FLASH-LITE]|
-+-----------------------------------------------------------------------------------------+</pre>
+    <!-- Interactive Terminal ASCII HUD Banner -->
+    <section class="ascii-hud">
+      <div class="hud-topline">
+        <span class="hud-dot"></span>
+        <span class="hud-dot"></span>
+        <span class="hud-dot"></span>
+        <span class="hud-title">SYSTEM CONSOLE // CGPDTM LEGAL KNOWLEDGE GRAPH</span>
+        <span class="hud-status">STATUS: ONLINE</span>
+      </div>
+      <pre class="ascii-viewport" id="asciiConsole">
++-----------------------------------------------------------------------------------------------+
+|  CGPDTM // MANUAL OF DESIGNS PRACTICE & PROCEDURE // RETRIEVAL-AUGMENTED GENERATION          |
+|  [CHROMA_DB: 163 EMBEDDINGS]  [EMBEDDING: 3072-DIM]  [INDEX: 87 PAGES]  [ANTI-HALLUCINATION]  |
++-----------------------------------------------------------------------------------------------+</pre>
     </section>
 
-    <!-- Benchmark Presets Section -->
-    <section class="benchmark-panel">
-      <div class="panel-header">
-        <span class="section-tag">BENCHMARK EVALUATION SUITE</span>
-        <span class="section-hint">SELECT QUESTION FOR IMMEDIATE GROUNDED CITATION</span>
-      </div>
-      <div class="benchmark-grid" id="presetsGrid">
-        <button type="button" class="benchmark-btn" data-query="How long does a proprietor have copyright in a registered design, and can it be extended?">
-          <span class="btn-index">Q1</span>
-          <span class="btn-text">Copyright Term & Extension</span>
-        </button>
-        <button type="button" class="benchmark-btn" data-query="Which classification system is used to register designs?">
-          <span class="btn-index">Q2</span>
-          <span class="btn-text">Classification System (Locarno)</span>
-        </button>
-        <button type="button" class="benchmark-btn" data-query="What is the government fee to register a trademark?">
-          <span class="btn-index">Q3</span>
-          <span class="btn-text">Trademark Fee (Negative Test)</span>
-        </button>
-        <button type="button" class="benchmark-btn" data-query="Who is the current Controller General of Patents?">
-          <span class="btn-index">Q4</span>
-          <span class="btn-text">Controller General (Out-of-Doc)</span>
-        </button>
-        <button type="button" class="benchmark-btn" data-query="What is the fee to register a design?">
-          <span class="btn-index">Q5</span>
-          <span class="btn-text">Design Registration Fee</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- Main Chat Workspace -->
-    <main class="chat-workspace" id="chatViewport">
-      <!-- Minimalist Welcome Card -->
-      <div class="welcome-box" id="welcomeCard">
-        <div class="welcome-header">
-          <span class="welcome-tag">SYSTEM SPECIFICATION</span>
-          <h2 class="welcome-heading">Manual of Practice & Procedure Assistant</h2>
+    <!-- Benchmark Quick-Query Panel -->
+    <section class="benchmark-suite">
+      <div class="suite-header">
+        <div class="suite-title-group">
+          <span class="suite-label">BENCHMARK TEST SUITE</span>
+          <span class="suite-desc">ONE-CLICK GROUNDED CITATION PREVIEWS</span>
         </div>
-        <p class="welcome-desc">
-          Automated legal assistant querying Indian Industrial Designs Law. Answers are strictly
-          constrained to the text of the official CGPDTM Manual. Extrapolations or out-of-document
-          queries are strictly rejected with standard "Not found" responses.
-        </p>
-        <div class="rules-row">
-          <div class="rule-card">
-            <span class="rule-num">01</span>
-            <span class="rule-label">STRICT GROUNDING</span>
-            <span class="rule-detail">Answers derived strictly from the 87-page manual.</span>
+        <span class="suite-shortcut">SELECT 01 - 05</span>
+      </div>
+      <div class="benchmark-chips" id="presetsGrid">
+        <button type="button" class="chip-btn" data-query="How long does a proprietor have copyright in a registered design, and can it be extended?">
+          <span class="chip-index">01</span>
+          <span class="chip-name">Copyright Term &amp; Extension</span>
+          <span class="chip-arrow">&rarr;</span>
+        </button>
+        <button type="button" class="chip-btn" data-query="Which classification system is used to register designs?">
+          <span class="chip-index">02</span>
+          <span class="chip-name">Classification System (Locarno)</span>
+          <span class="chip-arrow">&rarr;</span>
+        </button>
+        <button type="button" class="chip-btn" data-query="What is the government fee to register a trademark?">
+          <span class="chip-index">03</span>
+          <span class="chip-name">Trademark Fee [Negative Gate]</span>
+          <span class="chip-arrow">&rarr;</span>
+        </button>
+        <button type="button" class="chip-btn" data-query="Who is the current Controller General of Patents?">
+          <span class="chip-index">04</span>
+          <span class="chip-name">Controller General [Out-of-Doc]</span>
+          <span class="chip-arrow">&rarr;</span>
+        </button>
+        <button type="button" class="chip-btn" data-query="What is the fee to register a design?">
+          <span class="chip-index">05</span>
+          <span class="chip-name">Design Registration Fee</span>
+          <span class="chip-arrow">&rarr;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Main Chat Stream -->
+    <main class="chat-stream" id="chatViewport">
+      <!-- Welcome Hero Card -->
+      <div class="hero-card" id="welcomeCard">
+        <div class="hero-top">
+          <span class="hero-kicker">VERIFIED LEGAL INTELLIGENCE</span>
+          <h2 class="hero-title">Manual of Designs Practice &amp; Procedure</h2>
+          <p class="hero-subtitle">
+            An enterprise-grade, dual-gated RAG assistant constrained strictly to the official 
+            IP India manual. Designed for zero-hallucination accuracy with exact page and section citations.
+          </p>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec-card">
+            <div class="spec-header">
+              <span class="spec-num">01</span>
+              <span class="spec-name">STRICT GROUNDING</span>
+            </div>
+            <p class="spec-text">No outside knowledge or assumptions. Facts derived strictly from the manual.</p>
           </div>
-          <div class="rule-card">
-            <span class="rule-num">02</span>
-            <span class="rule-label">METADATA CITATIONS</span>
-            <span class="rule-detail">Every grounded answer cites exact Page, Chapter, and Section.</span>
+          <div class="spec-card">
+            <div class="spec-header">
+              <span class="spec-num">02</span>
+              <span class="spec-name">PRECISE CITATIONS</span>
+            </div>
+            <p class="spec-text">Every grounded answer attributes Page, Chapter, and Decimal Section markers.</p>
           </div>
-          <div class="rule-card">
-            <span class="rule-num">03</span>
-            <span class="rule-label">DUAL-LAYER GATE</span>
-            <span class="rule-detail">Retrieval score gate + Prompt gate enforce zero hallucination.</span>
+          <div class="spec-card">
+            <div class="spec-header">
+              <span class="spec-num">03</span>
+              <span class="spec-name">DUAL-LAYER GATE</span>
+            </div>
+            <p class="spec-text">Relevance score threshold (0.50) + Prompt negative gate reject out-of-scope queries.</p>
           </div>
         </div>
       </div>
     </main>
 
-    <!-- Query Input Bar -->
-    <footer class="input-panel">
-      <form id="queryForm" class="query-form">
-        <div class="input-shell">
-          <span class="prompt-symbol">&gt;</span>
+    <!-- Input Bar -->
+    <footer class="input-dock">
+      <form id="queryForm" class="query-dock-form">
+        <div class="dock-shell">
+          <span class="dock-prompt">PROMPT &gt;</span>
           <input 
             type="text" 
             id="questionInput" 
-            class="terminal-input" 
-            placeholder="Enter query regarding Indian Industrial Designs Law (e.g. copyright term, fee schedule, Locarno classification)..."
+            class="dock-input" 
+            placeholder="Ask about design registration, terms, fees, classification, piracy, cancellation..."
             autocomplete="off"
             required
           />
-          <button type="submit" id="submitBtn" class="action-btn">
-            <span>QUERY</span>
+          <button type="submit" id="submitBtn" class="dock-btn">
+            <span>EXECUTE</span>
           </button>
         </div>
       </form>
