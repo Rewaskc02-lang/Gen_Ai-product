@@ -1,0 +1,127 @@
+{
+  "score_threshold": 0.5,
+  "all_passed": true,
+  "total_questions": 8,
+  "passed_count": 8,
+  "results": [
+    {
+      "id": 1,
+      "question": "How long does a proprietor have copyright in a registered design, and can it be extended?",
+      "type": "in_doc",
+      "expected_found": true,
+      "actual_found": true,
+      "answer": "A proprietor shall have copyright in the design for ten years from the date of registration. This period of ten years can be extended by five years if the registered proprietor applies for extension in the prescribed manner.",
+      "passed": true,
+      "gate_triggered": "None (Answer found)",
+      "best_score": 0.6355486144935674,
+      "citations": [
+        {
+          "page": 36,
+          "chapter": "Chapter 6 – Piracy of registered designs and consequences thereof",
+          "section": "06.05 Rights in lapsed design, which has been restored"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "question": "Which classification system is used to register designs?",
+      "type": "in_doc",
+      "expected_found": true,
+      "actual_found": true,
+      "answer": "For the purpose of registration of designs, articles are classified into thirty-one classes and a miscellaneous class 99 based on the International Classification of Industrial Designs according to the Locarno Agreement, as described in The Third Schedule of The Design Rules, 2001.",
+      "passed": true,
+      "gate_triggered": "None (Answer found)",
+      "best_score": 0.6398380257070666,
+      "citations": [
+        {
+          "page": 20,
+          "chapter": "Chapter 3 – Filing of Design Application",
+          "section": "03.06.02.05 Representation sheet"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "question": "What is the government fee to register a trademark?",
+      "type": "out_of_doc",
+      "expected_found": false,
+      "actual_found": false,
+      "answer": "Not found",
+      "passed": true,
+      "gate_triggered": "Layer A (retrieval score below threshold)",
+      "best_score": 0.47120435442382547,
+      "citations": []
+    },
+    {
+      "id": 4,
+      "question": "Who is the current Controller General of Patents?",
+      "type": "out_of_doc",
+      "expected_found": false,
+      "actual_found": false,
+      "answer": "Not found",
+      "passed": true,
+      "gate_triggered": "Layer B (prompt gate)",
+      "best_score": 0.5812584581365631,
+      "citations": []
+    },
+    {
+      "id": 5,
+      "question": "What is the fee to register a design?",
+      "type": "in_doc",
+      "expected_found": true,
+      "actual_found": true,
+      "answer": "The fee to be paid in respect of any matter, including design applications, is prescribed in the First Schedule of The Design Rules, 2001. This fee may be paid in cash, through electronic means, or sent by bank draft or cheque payable at par to the Controller of Designs.",
+      "passed": true,
+      "gate_triggered": "None (Answer found)",
+      "best_score": 0.6251452128476838,
+      "citations": [
+        {
+          "page": 22,
+          "chapter": "Chapter 3 – Filing of Design Application",
+          "section": "03.08 Fee"
+        },
+        {
+          "page": 14,
+          "chapter": "Chapter 3 – Filing of Design Application",
+          "section": "03.06.02.01 Application form"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "question": "What are the patentability criteria for an artificial intelligence invention under the Indian Patents Act?",
+      "type": "out_of_doc",
+      "expected_found": false,
+      "actual_found": false,
+      "answer": "Not found",
+      "passed": true,
+      "gate_triggered": "Layer B (prompt gate)",
+      "best_score": 0.5328158398356573,
+      "citations": []
+    },
+    {
+      "id": 7,
+      "question": "What is the penalty for copyright infringement under Section 63 of the Indian Copyright Act 1957?",
+      "type": "out_of_doc",
+      "expected_found": false,
+      "actual_found": false,
+      "answer": "Not found",
+      "passed": true,
+      "gate_triggered": "Layer B (prompt gate)",
+      "best_score": 0.5920993440699898,
+      "citations": []
+    },
+    {
+      "id": 8,
+      "question": "What is the average annual rainfall and monsoon weather in New Delhi?",
+      "type": "out_of_doc",
+      "expected_found": false,
+      "actual_found": false,
+      "answer": "Not found",
+      "passed": true,
+      "gate_triggered": "Layer A (retrieval score below threshold)",
+      "best_score": 0.3688288550409943,
+      "citations": []
+    }
+  ]
+}
