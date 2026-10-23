@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const welcomeCard = document.getElementById('welcomeCard');
   const presetsGrid = document.getElementById('presetsGrid');
 
-  // Handle Preset Click
+  // Handle Preset Button Click
   presetsGrid.addEventListener('click', (e) => {
-    const btn = e.target.closest('.preset-btn');
+    const btn = e.target.closest('.benchmark-btn');
     if (!btn) return;
     const query = btn.getAttribute('data-query');
     if (query) {
@@ -26,19 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   async function submitQuery(query) {
-    // Hide welcome card once first interaction occurs
     if (welcomeCard) {
       welcomeCard.style.display = 'none';
     }
 
-    // Append User Bubble
-    appendUserMessage(query);
+    appendUserQuery(query);
     questionInput.value = '';
     questionInput.blur();
 
-    // Disable input while processing
     submitBtn.disabled = true;
-    const loadingCard = appendLoadingShimmer();
+    const loadingElem = appendLoadingBox();
     chatViewport.scrollTop = chatViewport.scrollHeight;
 
     try {
@@ -49,96 +46,98 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       if (!response.ok) {
-        throw new Error(`Server returned HTTP ${response.status}`);
+        throw new Error(`HTTP ${response.status} - Server Communication Error`);
       }
 
       const data = await response.json();
-      loadingCard.remove();
-      appendAssistantMessage(data);
+      loadingElem.remove();
+      appendAssistantResponse(data);
 
     } catch (err) {
-      loadingCard.remove();
-      appendErrorMessage(err.message || 'Unable to connect to assistant backend.');
+      loadingElem.remove();
+      appendErrorBox(err.message || 'Error communicating with assistant backend.');
     } finally {
       submitBtn.disabled = false;
       chatViewport.scrollTop = chatViewport.scrollHeight;
     }
   }
 
-  function appendUserMessage(text) {
+  function appendUserQuery(text) {
     const row = document.createElement('div');
-    row.className = 'message-row';
-    row.innerHTML = `<div class="user-bubble">${escapeHtml(text)}</div>`;
+    row.className = 'message-entry';
+    row.innerHTML = `
+      <div class="user-query-card">
+        <div class="user-query-tag">QUERY INPUT</div>
+        <div class="user-query-text">${escapeHtml(text)}</div>
+      </div>
+    `;
     chatViewport.appendChild(row);
   }
 
-  function appendLoadingShimmer() {
+  function appendLoadingBox() {
     const row = document.createElement('div');
-    row.className = 'message-row';
+    row.className = 'message-entry';
     row.innerHTML = `
-      <div class="shimmer-card">
-        <div class="shimmer-line short"></div>
-        <div class="shimmer-line long"></div>
-        <div class="shimmer-line med"></div>
+      <div class="loading-box">
+        <span>RETRIEVING FROM CHROMA_DB // CALLING GEMINI RAG CORE</span>
+        <div class="loading-dots">
+          <span class="loading-dot"></span>
+          <span class="loading-dot"></span>
+          <span class="loading-dot"></span>
+        </div>
       </div>
     `;
     chatViewport.appendChild(row);
     return row;
   }
 
-  function appendAssistantMessage(data) {
+  function appendAssistantResponse(data) {
     const row = document.createElement('div');
-    row.className = 'message-row';
+    row.className = 'message-entry';
 
     const isFound = data.found && data.answer !== 'Not found';
-    const statusClass = isFound ? 'badge-found' : 'badge-not-found';
-    const statusText = isFound ? 'Grounded in Document' : 'Not Found in Document';
-    const speedTag = data.cached ? `⚡ ${data.latency_ms}ms (Cached)` : `⏱️ ${data.latency_ms}ms`;
+    const statusClass = isFound ? 'status-grounded' : 'status-notfound';
+    const statusText = isFound ? 'STATUS: GROUNDED' : 'STATUS: NOT FOUND';
+    const speedTag = data.cached ? `[CACHED: ${data.latency_ms}ms]` : `[LATENCY: ${data.latency_ms}ms]`;
 
     let citationsHtml = '';
     if (isFound && data.citations && data.citations.length > 0) {
-      const cardsHtml = data.citations.map((c) => `
-        <div class="citation-card">
-          <div class="citation-tags">
-            <span class="cit-pill cit-pill-page">📄 Page ${c.page}</span>
-            <span class="cit-pill">🏛️ ${escapeHtml(c.chapter || 'Chapter')}</span>
-            <span class="cit-pill">📌 ${escapeHtml(c.section || 'Section')}</span>
+      const rowsHtml = data.citations.map((c) => `
+        <div class="citation-row">
+          <div class="citation-markers">
+            <span class="marker marker-page">PAGE ${c.page}</span>
+            <span class="marker marker-meta">${escapeHtml(c.chapter || 'CHAPTER')}</span>
+            <span class="marker marker-meta">${escapeHtml(c.section || 'SECTION')}</span>
           </div>
-          <div class="cit-snippet">"${escapeHtml(c.snippet || 'Referenced in official text')}"</div>
+          <div class="source-excerpt">"${escapeHtml(c.snippet || 'Official text verified in manual.')}"</div>
         </div>
       `).join('');
 
       citationsHtml = `
-        <div class="citations-box">
-          <div class="citations-title">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-            </svg>
-            Verified Sources (${data.citations.length})
-          </div>
-          ${cardsHtml}
+        <div class="citations-wrapper">
+          <div class="citations-header">VERIFIED SOURCE CITATIONS (${data.citations.length})</div>
+          ${rowsHtml}
         </div>
       `;
     } else if (!isFound && data.gate_triggered) {
       citationsHtml = `
-        <div class="citations-box">
-          <div class="citations-title" style="color: #fbbf24;">🛡️ Verification Gate Active</div>
-          <div class="cit-snippet">Triggered by: <strong>${escapeHtml(data.gate_triggered)}</strong>. Outside document scope.</div>
+        <div class="citations-wrapper">
+          <div class="citations-header">VERIFICATION GATE ACTIVE</div>
+          <div class="source-excerpt">Gating Trigger: <strong>${escapeHtml(data.gate_triggered)}</strong>. Fact not found in manual.</div>
         </div>
       `;
     }
 
     row.innerHTML = `
-      <div class="assistant-card">
-        <div class="assistant-meta">
+      <div class="assistant-response-card">
+        <div class="response-meta">
           <span class="status-badge ${statusClass}">${statusText}</span>
-          <div class="meta-stats">
-            <span>Score: ${data.best_score || 'N/A'}</span>
+          <div class="metric-chips">
+            <span>SCORE: ${data.best_score || 'N/A'}</span>
             <span>${speedTag}</span>
           </div>
         </div>
-        <div class="answer-body">${escapeHtml(data.answer)}</div>
+        <div class="response-text">${escapeHtml(data.answer)}</div>
         ${citationsHtml}
       </div>
     `;
@@ -146,17 +145,15 @@ document.addEventListener('DOMContentLoaded', () => {
     chatViewport.appendChild(row);
   }
 
-  function appendErrorMessage(errText) {
+  function appendErrorBox(msg) {
     const row = document.createElement('div');
-    row.className = 'message-row';
+    row.className = 'message-entry';
     row.innerHTML = `
-      <div class="assistant-card" style="border-color: rgba(239, 68, 68, 0.4);">
-        <div class="assistant-meta">
-          <span class="status-badge" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">System Alert</span>
+      <div class="assistant-response-card" style="border-color: #888888;">
+        <div class="response-meta">
+          <span class="status-badge" style="background-color: #444444; color: #ffffff;">SYSTEM ERROR</span>
         </div>
-        <div class="answer-body" style="color: #fca5a5;">
-          ${escapeHtml(errText)}
-        </div>
+        <div class="response-text" style="color: #ffffff;">${escapeHtml(msg)}</div>
       </div>
     `;
     chatViewport.appendChild(row);

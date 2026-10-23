@@ -4,109 +4,127 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Designs Law Assistant | CGPDTM IP India</title>
-  <meta name="description" content="AI Legal Assistant for Indian Industrial Designs Law grounded strictly in the Manual of Designs Practice and Procedure.">
+  <meta name="description" content="Professional RAG Assistant for Indian Industrial Designs Law grounded in the official CGPDTM Manual of Practice and Procedure.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <!-- Ambient background glow elements -->
-  <div class="glow-orb orb-1"></div>
-  <div class="glow-orb orb-2"></div>
-  <div class="grid-overlay"></div>
+  <!-- Minimalist background grid -->
+  <div class="tech-grid"></div>
 
-  <div class="app-container">
-    <!-- Header -->
-    <header class="app-header">
-      <div class="header-left">
-        <div class="logo-badge">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-          </svg>
-        </div>
-        <div>
-          <h1 class="brand-title">Designs Law Assistant</h1>
-          <p class="brand-subtitle">Manual of Practice & Procedure (CGPDTM • IP India • 87 pp)</p>
+  <div class="app-layout">
+    <!-- Professional Topbar -->
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-monogram">IN</div>
+        <div class="brand-text">
+          <div class="brand-title">DESIGNS LAW ASSISTANT</div>
+          <div class="brand-meta">OFFICE OF CGPDTM • DESIGNS WING, KOLKATA • 87 PAGES</div>
         </div>
       </div>
-      <div class="header-right">
-        <span class="system-tag status-live"><span class="pulse-dot"></span> RAG Verified</span>
-        <span class="system-tag model-tag">Gemini 3.5</span>
-        <span class="system-tag index-tag">163 Chunks Indexed</span>
+      <div class="system-status">
+        <div class="status-indicator">
+          <span class="pixel-dot"></span>
+          <span class="status-text">SYSTEM OPERATIONAL</span>
+        </div>
+        <div class="spec-chip">INDEX: 163 CHUNKS</div>
+        <div class="spec-chip">GATE: 0.50 THRESHOLD</div>
       </div>
     </header>
 
-    <!-- Main Content Layout -->
-    <main class="main-content">
-      <!-- Quick Test Presets Panel -->
-      <section class="presets-section">
-        <div class="presets-header">
-          <span class="presets-icon">⚡</span>
-          <span class="presets-label">Benchmark Test Questions:</span>
-        </div>
-        <div class="presets-grid" id="presetsGrid">
-          <button class="preset-btn" data-query="How long does a proprietor have copyright in a registered design, and can it be extended?">
-            <span class="preset-num">Q1</span> Copyright Term & Extension
-          </button>
-          <button class="preset-btn" data-query="Which classification system is used to register designs?">
-            <span class="preset-num">Q2</span> Classification System (Locarno)
-          </button>
-          <button class="preset-btn" data-query="What is the government fee to register a trademark?">
-            <span class="preset-num">Q3</span> Trademark Fee (Negative Test)
-          </button>
-          <button class="preset-btn" data-query="Who is the current Controller General of Patents?">
-            <span class="preset-num">Q4</span> Controller General (Out-of-Doc)
-          </button>
-          <button class="preset-btn" data-query="What is the fee to register a design?">
-            <span class="preset-num">Q5</span> Design Registration Fee
-          </button>
-        </div>
-      </section>
+    <!-- ASCII / Terminal Header Banner -->
+    <section class="ascii-banner" aria-hidden="true">
+      <pre class="ascii-art">
++-----------------------------------------------------------------------------------------+
+|  CGPDTM // MANUAL OF DESIGNS PRACTICE & PROCEDURE // RAG VERIFICATION CORE              |
+|  STATUS: GROUNDED LEGAL RETRIEVAL   [CHROMA_DB: ACTIVE]   [MODEL: GEMINI-3.5-FLASH-LITE]|
++-----------------------------------------------------------------------------------------+</pre>
+    </section>
 
-      <!-- Chat Stream -->
-      <section class="chat-viewport" id="chatViewport">
-        <!-- Welcome banner -->
-        <div class="welcome-card" id="welcomeCard">
-          <div class="welcome-icon">⚖️</div>
-          <h2>Welcome to Designs Law Assistant</h2>
-          <p>
-            Ask any question regarding the registration of industrial designs in India. Answers are
-            <strong>strictly grounded</strong> in the official Manual of Designs Practice & Procedure.
-            If a question is outside the scope of the manual, the assistant will reliably report
-            <strong>"Not found"</strong> without hallucinating.
-          </p>
-          <div class="feature-badges">
-            <div class="badge-item"><span class="check-icon">✓</span> Exact Page & Chapter Citations</div>
-            <div class="badge-item"><span class="check-icon">✓</span> Two-Layer "Not Found" Gate</div>
-            <div class="badge-item"><span class="check-icon">✓</span> Ultra-Fast Caching</div>
+    <!-- Benchmark Presets Section -->
+    <section class="benchmark-panel">
+      <div class="panel-header">
+        <span class="section-tag">BENCHMARK EVALUATION SUITE</span>
+        <span class="section-hint">SELECT QUESTION FOR IMMEDIATE GROUNDED CITATION</span>
+      </div>
+      <div class="benchmark-grid" id="presetsGrid">
+        <button type="button" class="benchmark-btn" data-query="How long does a proprietor have copyright in a registered design, and can it be extended?">
+          <span class="btn-index">Q1</span>
+          <span class="btn-text">Copyright Term & Extension</span>
+        </button>
+        <button type="button" class="benchmark-btn" data-query="Which classification system is used to register designs?">
+          <span class="btn-index">Q2</span>
+          <span class="btn-text">Classification System (Locarno)</span>
+        </button>
+        <button type="button" class="benchmark-btn" data-query="What is the government fee to register a trademark?">
+          <span class="btn-index">Q3</span>
+          <span class="btn-text">Trademark Fee (Negative Test)</span>
+        </button>
+        <button type="button" class="benchmark-btn" data-query="Who is the current Controller General of Patents?">
+          <span class="btn-index">Q4</span>
+          <span class="btn-text">Controller General (Out-of-Doc)</span>
+        </button>
+        <button type="button" class="benchmark-btn" data-query="What is the fee to register a design?">
+          <span class="btn-index">Q5</span>
+          <span class="btn-text">Design Registration Fee</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Main Chat Workspace -->
+    <main class="chat-workspace" id="chatViewport">
+      <!-- Minimalist Welcome Card -->
+      <div class="welcome-box" id="welcomeCard">
+        <div class="welcome-header">
+          <span class="welcome-tag">SYSTEM SPECIFICATION</span>
+          <h2 class="welcome-heading">Manual of Practice & Procedure Assistant</h2>
+        </div>
+        <p class="welcome-desc">
+          Automated legal assistant querying Indian Industrial Designs Law. Answers are strictly
+          constrained to the text of the official CGPDTM Manual. Extrapolations or out-of-document
+          queries are strictly rejected with standard "Not found" responses.
+        </p>
+        <div class="rules-row">
+          <div class="rule-card">
+            <span class="rule-num">01</span>
+            <span class="rule-label">STRICT GROUNDING</span>
+            <span class="rule-detail">Answers derived strictly from the 87-page manual.</span>
+          </div>
+          <div class="rule-card">
+            <span class="rule-num">02</span>
+            <span class="rule-label">METADATA CITATIONS</span>
+            <span class="rule-detail">Every grounded answer cites exact Page, Chapter, and Section.</span>
+          </div>
+          <div class="rule-card">
+            <span class="rule-num">03</span>
+            <span class="rule-label">DUAL-LAYER GATE</span>
+            <span class="rule-detail">Retrieval score gate + Prompt gate enforce zero hallucination.</span>
           </div>
         </div>
-      </section>
-
-      <!-- Input Bar -->
-      <footer class="input-container">
-        <form id="queryForm" class="query-form">
-          <div class="input-wrapper">
-            <input 
-              type="text" 
-              id="questionInput" 
-              class="question-input" 
-              placeholder="Ask about design registration, terms, classification, fees, cancellation..."
-              autocomplete="off"
-              required
-            />
-            <button type="submit" id="submitBtn" class="submit-btn" aria-label="Send Query">
-              <span>Send</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-              </svg>
-            </button>
-          </div>
-        </form>
-      </footer>
+      </div>
     </main>
+
+    <!-- Query Input Bar -->
+    <footer class="input-panel">
+      <form id="queryForm" class="query-form">
+        <div class="input-shell">
+          <span class="prompt-symbol">&gt;</span>
+          <input 
+            type="text" 
+            id="questionInput" 
+            class="terminal-input" 
+            placeholder="Enter query regarding Indian Industrial Designs Law (e.g. copyright term, fee schedule, Locarno classification)..."
+            autocomplete="off"
+            required
+          />
+          <button type="submit" id="submitBtn" class="action-btn">
+            <span>QUERY</span>
+          </button>
+        </div>
+      </form>
+    </footer>
   </div>
 
   <script src="/static/app.js"></script>
