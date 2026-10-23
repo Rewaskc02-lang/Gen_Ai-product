@@ -101,7 +101,7 @@ async def health_check():
 
 
 @app.post("/api/ask", response_model=QueryResponse)
-async def ask_question(req: QueryRequest):
+def ask_question(req: QueryRequest):
     q = req.question.strip()
     if not q:
         raise HTTPException(status_code=400, detail="Question cannot be empty.")
@@ -184,4 +184,4 @@ async def serve_index():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=False)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
