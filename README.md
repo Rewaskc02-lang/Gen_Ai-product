@@ -164,16 +164,33 @@ To completely prevent hallucinations and unnecessary LLM costs, the system uses 
 
 ## 7. Verification Screenshots
 
-All CLI execution runs and outputs are stored in `screenshots/`:
+All execution runs and verified outputs are archived in `screenshots/`:
 
 | Screenshot | Description | File Link |
 |---|---|---|
-| **Screenshot #1** | Ingestion pipeline output (87 pages, 163 chunks, sanity query) | `screenshots/01_ingestion.png` |
-| **Screenshot #2** | Question 1 answer + citations (Term of design copyright & extension) | `screenshots/02_q1.png` |
-| **Screenshot #3** | Question 2 answer + citations (Locarno Classification system) | `screenshots/03_q2.png` |
-| **Screenshot #4** | Question 3 answer (Trademark fee -> Not found via Layer A) | `screenshots/04_q3.png` |
-| **Screenshot #5** | Question 4 answer (Controller General name -> Not found via Layer B) | `screenshots/05_q4.png` |
-| **Screenshot #6** | Question 5 answer + citations (Design registration fee & Schedule) | `screenshots/06_q5.png` |
+| **Question 1** | Grounded answer + citations (Term of design copyright & extension) | [`screenshots/02_q1.png`](screenshots/02_q1.png) |
+| **Question 2** | Grounded answer + citations (Locarno Classification system) | [`screenshots/03_q2.png`](screenshots/03_q2.png) |
+| **Question 3** | Negative gate response (Trademark fee -> Not found via Layer A) | [`screenshots/04_q3.png`](screenshots/04_q3.png) |
+| **Question 4** | Negative gate response (Controller General name -> Not found via Layer B) | `screenshots/05_q4.png` |
+| **Question 5** | Grounded answer + citations (Design registration fee & Schedule) | `screenshots/06_q5.png` |
+
+---
+
+### Screenshot 1 — Question 1 (Grounded Answer & Citations)
+*Question: "How long does a proprietor have copyright in a registered design, and can it be extended?"*
+![Question 1 Grounded Answer](screenshots/02_q1.png)
+
+---
+
+### Screenshot 2 — Question 2 (Locarno Classification System)
+*Question: "Which classification system is used to register designs?"*
+![Question 2 Locarno Classification](screenshots/03_q2.png)
+
+---
+
+### Screenshot 3 — Question 3 (Negative Layer A Gate: Not Found)
+*Question: "What is the government fee to register a trademark?"*
+![Question 3 Out-of-Doc Negative Gate](screenshots/04_q3.png)
 
 ---
 
