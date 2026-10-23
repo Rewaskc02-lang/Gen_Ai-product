@@ -117,7 +117,17 @@ python src/ingest.py
 ```bash
 python src/ask.py
 ```
-*Starts an interactive query loop with citation displays and logs interactions to `outputs/interaction_log.jsonl`.*
+*Starts an interactive CLI query loop with citation displays and logs interactions to `outputs/interaction_log.jsonl`.*
+
+### Interactive Web UI (FastAPI + Glassmorphism Frontend)
+```bash
+python src/server.py
+```
+*Starts the local web server at **http://localhost:8000** with:*
+- **Sub-millisecond Cached Responses**: Fast repeat replies (`0.0ms` cached).
+- **Interactive Benchmark Pills**: 1-click execution for all 5 project questions.
+- **Rich Citation Cards**: Shows exact Page pills, Chapter badges, Section pills, and quote snippets from the manual.
+- **Two-Layer Gate Status**: Real-time indicators showing whether an answer was grounded or blocked by the Retrieval/Prompt Gate.
 
 ### Run Benchmark Evaluation
 ```bash
