@@ -7,8 +7,53 @@ document.addEventListener('DOMContentLoaded', () => {
   const presetsGrid = document.getElementById('presetsGrid');
   const canvas = document.getElementById('ambientCanvas');
 
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+  const themeLabel = document.getElementById('themeLabel');
+  const themeSwatches = document.getElementById('themeSwatches');
+
   // ---------------------------------------------------------------------------
-  // 1. Ambient Background Particle Matrix (Minimalist Constellation)
+  // 1. Color Theme Controller (Slate & Azure #384959, #6A89A7, #88BDF2, #BDDDFC)
+  // ---------------------------------------------------------------------------
+  let currentTheme = localStorage.getItem('designs_law_theme') || 'azure';
+
+  function applyTheme(theme) {
+    currentTheme = theme;
+    localStorage.setItem('designs_law_theme', theme);
+    if (theme === 'monochrome') {
+      document.documentElement.setAttribute('data-theme', 'monochrome');
+      if (themeLabel) themeLabel.textContent = 'MONOCHROME';
+      if (themeSwatches) {
+        themeSwatches.innerHTML = `
+          <span class="theme-swatch" style="background:#2b2b2b;"></span>
+          <span class="theme-swatch" style="background:#b3b3b3;"></span>
+          <span class="theme-swatch" style="background:#d4d4d4;"></span>
+          <span class="theme-swatch" style="background:#ffffff;"></span>
+        `;
+      }
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      if (themeLabel) themeLabel.textContent = 'SLATE & AZURE';
+      if (themeSwatches) {
+        themeSwatches.innerHTML = `
+          <span class="theme-swatch" style="background:#384959;"></span>
+          <span class="theme-swatch" style="background:#6A89A7;"></span>
+          <span class="theme-swatch" style="background:#88BDF2;"></span>
+          <span class="theme-swatch" style="background:#BDDDFC;"></span>
+        `;
+      }
+    }
+  }
+
+  applyTheme(currentTheme);
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      applyTheme(currentTheme === 'azure' ? 'monochrome' : 'azure');
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // 2. Ambient Background Particle Matrix (Adaptive Constellation)
   // ---------------------------------------------------------------------------
   if (canvas) {
     const ctx = canvas.getContext('2d');
@@ -21,14 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const particles = [];
-    const count = Math.min(45, Math.floor(window.innerWidth / 30));
+    const count = Math.min(48, Math.floor(window.innerWidth / 28));
 
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
         radius: Math.random() * 1.5 + 0.8,
       });
     }
@@ -44,7 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 130) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(212, 212, 212, ${0.12 * (1 - dist / 130)})`;
+            if (currentTheme === 'azure') {
+              ctx.strokeStyle = `rgba(136, 189, 242, ${0.18 * (1 - dist / 130)})`;
+            } else {
+              ctx.strokeStyle = `rgba(212, 212, 212, ${0.12 * (1 - dist / 130)})`;
+            }
             ctx.lineWidth = 0.6;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -57,7 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
       for (let p of particles) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+        if (currentTheme === 'azure') {
+          ctx.fillStyle = 'rgba(189, 221, 252, 0.45)';
+        } else {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+        }
         ctx.fill();
 
         p.x += p.vx;
